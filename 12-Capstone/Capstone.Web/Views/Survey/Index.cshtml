@@ -1,0 +1,66 @@
+﻿@model SurveyViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Survey</h2>
+<div class="surveysubmit">
+    <form asp-controller="Survey" asp-action="Index" method="post">
+        <table>
+            <tr>
+                <td><label asp-for="ParkCode">Favorite National park:</label></td>
+                <td>
+                    <span class="tab" asp-validation-for="ParkCode">
+                        <select asp-for="ParkCode">
+                            <option value="@null"></option>
+                            @foreach (ParkViewModel park in Model.AllParks)
+                            {
+                                <option value="@park.ParkCode">@park.ParkName</option>
+                            }
+                        </select>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="EmailAddress">Your email:</label></td>
+                <td>
+                    <span class="tab" asp-validation-for="EmailAddress">
+                        <input asp-for="EmailAddress" />
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="State">State of Residence:</label></td>
+                <td>
+                    <span class="tab" asp-validation-for="State">
+                        <select asp-for="State">
+                            <option value="@null"></option>
+                            @foreach (SelectListItem item in Model.States)
+                            {
+                                <option value="@item.Text">@item.Value</option>
+                            }
+                        </select>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="ActivityLevel">Activity level:</label></td>
+                <td>
+                    <span class="tab" asp-validation-for="ActivityLevel">
+                        <select asp-for="ActivityLevel">
+                            <option value="@null"></option>
+                            <option value="inactive">Inactive</option>
+                            <option value="sedentary">Sedentary</option>
+                            <option value="active">Active</option>
+                            <option value="extremely active">Extremely active</option>
+                        </select>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><span class="tab"><input type="submit" /> </span></td>
+            </tr>
+        </table>
+    </form>
+</div>

@@ -1,0 +1,22 @@
+﻿@model IList<ParkViewModel>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h2>Welcome to National Park Geek!</h2>
+@*TODO: add NPGeek header (all pages?)*@
+<table>
+    <tbody>
+        @foreach (ParkViewModel park in Model)
+        {
+
+            <tr>
+                <td><img src="~/images/parks/@park.ImageSource" style="border :ridge 5px"/></td>
+                <td align="left">
+                    <a asp-controller="Home" asp-action="Detail" asp-route-park="@park.ParkCode"><h3>@park.ParkName</h3></a>
+                    @park.ParkDescription
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

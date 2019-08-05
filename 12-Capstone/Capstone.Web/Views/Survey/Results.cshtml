@@ -1,0 +1,33 @@
+﻿@model Dictionary<string, int>
+@{
+    ViewData["Title"] = "Results";
+
+}
+
+<h2>Survey Results</h2>
+<p>Here are the favorite parks voted by you!</p>
+
+@*This currently shows only the park name and number of votes, no image
+    Later we might come back to make that work
+    That would likely require making a new viewmodel with three member attributes,
+    and passing in a list of that
+*@
+<div class="surveyresults">
+    <table style="width:100%">
+        <thead>
+            <tr>
+                <th>Park Name</th>
+                <th>Number of votes</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (KeyValuePair<string, int> park in Model)
+            {
+                <tr>
+                    <td>@park.Key</td>
+                    <td>@park.Value</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

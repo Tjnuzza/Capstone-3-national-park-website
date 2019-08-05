@@ -1,0 +1,94 @@
+﻿@model ParkViewModel
+@{
+    ViewData["Title"] = "Detail";
+
+}
+
+<h2>Details on @Model.ParkName</h2>
+
+<div>
+    <img class="detailimg" src="~/images/parks/@Model.ImageSource" />
+    <p><i>@Model.InspirationalQuote</i> -@Model.InspirationalQuoteSource</p>
+    <p>@Model.ParkDescription</p>
+</div>
+
+<table>
+    <tbody>
+        <tr>
+            <td>State:</td>
+            <td>@Model.State</td>
+        </tr>
+        <tr>
+            <td>Founded:</td>
+            <td>@Model.YearFounded</td>
+        </tr>
+        <tr>
+            <td>Climate:</td>
+            <td>@Model.Climate</td>
+        </tr>
+        <tr>
+            <td>Elevation:</td>
+            <td>@Model.ElevationInFeet</td>
+        </tr>
+        <tr>
+            <td>Annual visitors:</td>
+            <td>@Model.AnnualVisitors</td>
+        </tr>
+        <tr>
+            <td>Acreage:</td>
+            <td>@Model.Acreage</td>
+        </tr>
+        <tr>
+            <td>Miles of trail:</td>
+            <td>@Model.MilesOfTrail</td>
+        </tr>
+        <tr>
+            <td>Number of animal species:</td>
+            <td>@Model.NumberOfAnimalSpecies</td>
+        </tr>
+        <tr>
+            <td>Entry fee:</td>
+            <td>@($"{Model.EntryFee:C}")</td>
+        </tr>
+    </tbody>
+</table>
+<br />
+
+<div class="weather">
+    <table class="weather-table">
+        <tr>
+            <th colspan="5">5 Day Forecast: </th>
+        </tr>
+        <tr>
+            <td>@DateTime.Today.DayOfWeek</td>
+            <td>@DateTime.Today.AddDays(1).DayOfWeek</td>
+            <td>@DateTime.Today.AddDays(2).DayOfWeek</td>
+            <td>@DateTime.Today.AddDays(3).DayOfWeek</td>
+            <td>@DateTime.Today.AddDays(4).DayOfWeek</td>
+        </tr>
+        <tr>
+            @foreach (WeatherViewModel weather in Model.Weather)
+            {
+                <td>
+                    <img id="weather-img" src="~/images/weather/@weather.ImageSource"  />
+                    @if (Model.ConversionChoice == "celsius")
+                    {
+                        <p><strong>High:</strong>    @weather.TemperatureConversion(weather.HighTemp)</p>
+                        <p><strong>Low:</strong>     @weather.TemperatureConversion(weather.LowTemp)</p>
+                    }
+                    else
+                    {
+                        <p><strong>High:   </strong>@weather.HighTemp</p>
+                        <p><strong>Low:   </strong>@weather.LowTemp </p>
+                    }
+                </td>
+            }
+        </tr>
+    </table>
+</div>
+
+<div class="advisory">
+    <p>@Model.Weather[0].Advisory()</p>
+    <p>@Model.Weather[0].TempAdvisory()</p>
+    <p>Have a wonderful day at @Model.ParkName!</p>
+</div>
